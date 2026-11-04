@@ -1,0 +1,58 @@
+name: Bug report
+description: Something in Zynko does not work as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve Zynko. Please do not include passwords, tokens or personal data.
+  - type: input
+    id: version
+    attributes:
+      label: Zynko version
+      description: Settings › About Zynko
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: "Windows 11 24H2"
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Press …
+        3. …
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Playback
+        - Home and menu
+        - Search
+        - Profiles
+        - Plex connection
+        - Philips Hue
+        - Settings
+        - Other
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Display, TV / soundbar and remote
+      description: Useful for playback, HDR and audio issues.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Diagnostics
+      description: Settings › About › Diagnostics lets you save logs. Attach the file here.
