@@ -1,8 +1,8 @@
-# Zynko user guide
+# Zyvek user guide
 
 The guide will be completed as features are released.
 
-1. **Install Zynko** — requirements, download and installation.
+1. **Install Zyvek** — requirements, download and installation.
 2. **First start** — language and country, choosing what you use (Plex, Philips Hue…), linking Plex, servers and libraries, the main profile.
 3. **Home and menu** — sections, posters and landscape cards, customising the sidebar.
 4. **Watching** — the player, audio and subtitles, versions, playback info.
@@ -13,5 +13,5 @@ The guide will be completed as features are released.
 9. **Audio and video** — HDR, passthrough and the audio configuration test.
 10. **Philips Hue Sync** — connecting the bridge and choosing an entertainment area.
 11. **Remote control and keyboard** — keys and typing from the phone.
-12. **Updates** — how Zynko updates itself and how to choose when.
+12. **Updates** — how Zyvek updates itself and how to choose when.
 13. **Troubleshooting** — playback, network and Plex remote access (Plex Pass / Remote Watch Pass).

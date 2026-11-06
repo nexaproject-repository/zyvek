@@ -1,15 +1,15 @@
 name: Bug report
-description: Something in Zynko does not work as expected.
+description: Something in Zyvek does not work as expected.
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: Thanks for helping improve Zynko. Please do not include passwords, tokens or personal data.
+      value: Thanks for helping improve Zyvek. Please do not include passwords, tokens or personal data.
   - type: input
     id: version
     attributes:
-      label: Zynko version
-      description: Settings › About Zynko
+      label: Zyvek version
+      description: Settings › About Zyvek
       placeholder: "0.1.0"
     validations:
       required: true
