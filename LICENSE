@@ -1,39 +1,39 @@
-Zynko — Freeware License
+Zyvek — Freeware License
 
 Copyright (c) Nexa Project (M. J. Escaño). All rights reserved.
 
-1. Grant. You may download, install and use Zynko free of charge, for personal
+1. Grant. You may download, install and use Zyvek free of charge, for personal
    and non-commercial use, on any number of devices you own or control. You may
    share the unmodified, official installer as published in this repository's
    Releases.
 
 2. Restrictions. You may not:
-   a) sell, rent, lease or sublicense Zynko, or distribute it as part of a paid
+   a) sell, rent, lease or sublicense Zyvek, or distribute it as part of a paid
       product or service;
-   b) modify, decompile, disassemble or reverse engineer Zynko, except to the
+   b) modify, decompile, disassemble or reverse engineer Zyvek, except to the
       extent that applicable law, or the license of a third-party component
       listed in THIRD_PARTY_NOTICES.md, expressly allows it;
    c) distribute modified or repackaged installers, or remove or alter any
       copyright, trademark or license notices;
-   d) use the Zynko name or logo to suggest endorsement of another product.
+   d) use the Zyvek name or logo to suggest endorsement of another product.
 
-3. Third-party components. Zynko includes components distributed under their own
+3. Third-party components. Zyvek includes components distributed under their own
    licenses (for example, libmpv and FFmpeg under the GNU LGPL). Those licenses
    apply to those components and take precedence over this license for them.
    See THIRD_PARTY_NOTICES.md.
 
-4. Third-party services. Zynko connects to services you choose to use (such as
+4. Third-party services. Zyvek connects to services you choose to use (such as
    Plex, TMDB or Philips Hue). Your use of them is governed by their own terms.
 
-5. No warranty. Zynko is provided "as is", without warranty of any kind, express
+5. No warranty. Zyvek is provided "as is", without warranty of any kind, express
    or implied, including merchantability, fitness for a particular purpose and
    non-infringement.
 
 6. Limitation of liability. To the maximum extent permitted by law, the authors
    shall not be liable for any claim, damages or other liability arising from
-   the use of, or inability to use, Zynko.
+   the use of, or inability to use, Zyvek.
 
 7. Termination. This license ends automatically if you breach it. On
-   termination, you must stop using and delete all copies of Zynko.
+   termination, you must stop using and delete all copies of Zyvek.
 
-The source code of Zynko is not public.
+The source code of Zyvek is not public.

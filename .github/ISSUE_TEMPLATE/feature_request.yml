@@ -1,12 +1,12 @@
 name: Suggestion
-description: An idea to make Zynko better.
+description: An idea to make Zyvek better.
 labels: ["suggestion"]
 body:
   - type: textarea
     id: idea
     attributes:
       label: Your idea
-      description: What would you like Zynko to do?
+      description: What would you like Zyvek to do?
     validations:
       required: true
   - type: textarea
