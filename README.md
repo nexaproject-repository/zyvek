@@ -31,6 +31,7 @@ Installers will be published in [Releases](../../releases), digitally signed. Zy
 
 ## Help and feedback
 
+- **Website:** [nexaproject-repository.github.io/zynko](https://nexaproject-repository.github.io/zynko/)
 - **User guide:** [docs/user-guide](docs/user-guide/README.md)
 - **Report a bug or suggest an idea:** [Issues](../../issues/new/choose)
 - **Security problems:** see [SECURITY.md](SECURITY.md); please do not open a public issue.
