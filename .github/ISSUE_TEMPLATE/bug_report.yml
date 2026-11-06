@@ -38,12 +38,15 @@ body:
     attributes:
       label: Area
       options:
+        - First start
         - Playback
         - Home and menu
         - Search
         - Profiles
         - Plex connection
         - Philips Hue
+        - Notifications
+        - Updates
         - Settings
         - Other
   - type: textarea

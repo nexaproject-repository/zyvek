@@ -12,6 +12,10 @@ Zynko includes or uses the components and services below. Each is distributed un
 | [.NET](https://dotnet.microsoft.com) | Runtime | MIT |
 | [Avalonia](https://avaloniaui.net) | User interface | MIT |
 | [Quicksand](https://fonts.google.com/specimen/Quicksand), [Manrope](https://fonts.google.com/specimen/Manrope) | Fonts | SIL Open Font License 1.1 |
+| [SQLite](https://sqlite.org) | Local database | Public domain |
+| [HueApi](https://github.com/michielpost/Q42.HueApi) | Philips Hue connection and Entertainment streaming | MIT |
+| [Bouncy Castle for .NET](https://www.bouncycastle.org/csharp/) | DTLS for Hue Entertainment streaming | MIT |
+| [Velopack](https://velopack.io) (planned) | Installer and updates | MIT |
 | [VS Chamber Orchestra: Community Edition](https://github.com/sgossner/VSCO-2-CE) | Orchestral recordings used in the intro music and interface sounds | CC0 1.0 (public domain dedication) |
 
 ### Orchestral recordings
