@@ -23,11 +23,11 @@ Zynko is a free app for Windows that turns the living-room PC into a media cente
 - **Philips Hue Sync:** lights that follow the picture.
 - Designed for the **remote control**, with an on-screen keyboard and typing from your phone.
 
-Coming later: Jellyfin, Emby, local folders, Simkl, Trakt and Home Assistant.
+Coming later: local libraries, Jellyfin, Emby, Simkl and Home Assistant.
 
 ## Download
 
-Installers will be published in [Releases](../../releases). Requirements (provisional): Windows 10/11 64-bit, a Plex Media Server account, and an HDR display for HDR playback.
+Installers will be published in [Releases](../../releases), digitally signed. Zynko checks for new versions itself and never installs one while you are watching something. Requirements (provisional): Windows 10/11 64-bit, a Plex Media Server account, and an HDR display for HDR playback.
 
 ## Help and feedback
 
