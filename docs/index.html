@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zynko · Multimedia Home Center para Windows</title>
+<meta name="description" content="Zynko es un centro multimedia gratuito para Windows: tus bibliotecas de Plex en un reproductor propio 4K HDR, perfiles para toda la casa y luces Philips Hue que siguen la imagen. Diseñado para la tele y el mando.">
+<meta name="theme-color" content="#0B1020">
+<meta property="og:title" content="Zynko · Multimedia Home Center">
+<meta property="og:description" content="Tus bibliotecas de Plex en 4K HDR, diseñado para la tele y el mando. Gratis, para Windows.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url(assets/fonts/manrope-latin-wght-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url(assets/fonts/manrope-latin-ext-wght-normal.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Quicksand';font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/quicksand-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Quicksand';font-style:normal;font-weight:700;font-display:swap;src:url(assets/fonts/quicksand-latin-700-normal.woff2) format('woff2')}
+:root{
+  --bg:#0B1020;--deep:#070B17;--surface:#141B33;--line:#232C4A;--accent:#5B9BFF;--violet:#9B5CFF;--lilac:#C9B3FF;
+  --ok:#4ADE80;--text:#F2F5FB;--text2:#A3ACBF;
+  --fd:'Quicksand',ui-rounded,'Segoe UI',system-ui,sans-serif;--fb:'Manrope','Segoe UI',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--text);font:400 18px/1.6 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+img,svg{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+/* room light: the edges of the page glow like Hue lights around a TV */
+.room{position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(60vw 70vh at -8% 30%,rgba(46,107,255,.22),transparent 70%),
+  radial-gradient(55vw 70vh at 108% 40%,rgba(138,59,255,.20),transparent 70%),
+  radial-gradient(70vw 40vh at 50% 115%,rgba(27,46,107,.35),transparent 70%);animation:breathe 14s ease-in-out infinite alternate}
+@keyframes breathe{to{filter:hue-rotate(-18deg) brightness(1.12)}}
+main,header,footer{position:relative;z-index:1}
+/* header */
+header{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);background:rgba(11,16,32,.72);border-bottom:1px solid rgba(255,255,255,.05)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.bar img{height:34px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:26px;font-size:15px;font-weight:600;color:var(--text2)}
+.nav a{text-decoration:none}.nav a:hover{color:var(--text)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--text2);font:700 13px var(--fb);padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+@media (max-width:760px){.nav .opt{display:none}}
+/* hero */
+.hero{padding-block:110px 90px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
+.iso{width:150px;height:150px;filter:drop-shadow(0 0 60px rgba(120,130,255,.45))}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(20,27,51,.6);font-size:14px;font-weight:700;color:var(--lilac);letter-spacing:.04em}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--lilac);box-shadow:0 0 12px var(--lilac)}
+h1{margin:0;font:700 clamp(40px,6.4vw,76px)/1.04 var(--fd);letter-spacing:-.02em;text-wrap:balance;max-width:900px}
+.lead{margin:0;font-size:clamp(18px,2.2vw,22px);color:#CDD4E2;max-width:760px;text-wrap:pretty}
+.ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:28px;font:700 17px var(--fb);text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible,.lang button:focus-visible,.nav a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.small{font-size:14px;color:var(--text2)}
+/* sections */
+section{padding:84px 0;border-top:1px solid rgba(255,255,255,.04)}
+.eyebrow{font:800 13px var(--fb);letter-spacing:.2em;text-transform:uppercase;color:var(--text2);margin:0 0 12px}
+h2{margin:0 0 14px;font:700 clamp(30px,4vw,44px)/1.1 var(--fd);letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:0 0 40px;color:#C4CBD9;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}}
+.card{padding:26px;border-radius:22px;background:rgba(20,27,51,.55);border:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .ic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(91,155,255,.12);color:#9CC0FF}
+.card h3{margin:4px 0 0;font:700 21px/1.25 var(--fd)}
+.card p{margin:0;font-size:16px;color:var(--text2)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;counter-reset:s}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.step{padding:24px 26px;border-left:2px solid var(--accent);background:linear-gradient(90deg,rgba(91,155,255,.08),transparent);border-radius:0 18px 18px 0}
+.step b{display:block;font:700 20px var(--fd);margin-bottom:6px}
+.step span{font-size:16px;color:var(--text2)}
+/* light band */
+.lights{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+@media (max-width:860px){.lights{grid-template-columns:1fr}}
+.tv{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:24px;background:#05070F;border:1px solid var(--line);overflow:visible}
+.tv::before{content:"";position:absolute;inset:-40px;border-radius:60px;background:conic-gradient(from 0deg,#2E6BFF,#8A3BFF,#E0408F,#FF7A2E,#18B07A,#2E6BFF);filter:blur(46px);opacity:.55;z-index:-1;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tv .scr{position:absolute;inset:14px;border-radius:14px;background:linear-gradient(120deg,#0E1B3F,#2A1450 55%,#0B2A3A);display:flex;align-items:center;justify-content:center}
+.tv .scr svg{width:28%;opacity:.95}
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.road{grid-template-columns:1fr}}
+.col{padding:24px;border-radius:20px;border:1px solid rgba(255,255,255,.07);background:rgba(20,27,51,.45)}
+.col h3{margin:0 0 12px;font:700 19px var(--fd);display:flex;align-items:center;gap:10px}
+.col h3 i{width:10px;height:10px;border-radius:50%}
+.col ul{margin:0;padding-left:18px;color:#C4CBD9;font-size:16px;display:flex;flex-direction:column;gap:6px}
+/* faq */
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font:700 19px var(--fd);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--text2);font-weight:400}
+details[open] summary::after{content:"–"}
+details p{margin:10px 0 0;color:#C4CBD9;font-size:16px;max-width:820px}
+/* footer */
+footer{padding:48px 0 60px;border-top:1px solid rgba(255,255,255,.05);font-size:14px;color:var(--text2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--text)}
+.legal{margin-top:18px;max-width:900px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){.room,.tv::before{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="room" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap bar">
+    <a href="#" aria-label="Zynko"><img src="assets/zynko-horizontal-dark.svg" alt="Zynko" width="150" height="34"></a>
+    <nav class="nav" aria-label="Principal">
+      <a class="opt" href="#funciones" data-i18n="nav_features">Funciones</a>
+      <a class="opt" href="#hoja-de-ruta" data-i18n="nav_roadmap">Hoja de ruta</a>
+      <a class="opt" href="#preguntas" data-i18n="nav_faq">Preguntas</a>
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <svg class="iso" viewBox="7.5 7.5 85 85" role="img" aria-label="Zynko"><defs><linearGradient id="zg" gradientUnits="userSpaceOnUse" x1="15" y1="15" x2="85" y2="85"><stop offset="0" stop-color="#5B9BFF"/><stop offset="1" stop-color="#9B5CFF"/></linearGradient></defs><g fill="none" stroke="url(#zg)"><path d="M12 62 V38 A26 26 0 0 1 38 12 H62 M88 38 V62 A26 26 0 0 1 62 88 H38" stroke-width="9"/><path d="M33 33 H67 L33 67 H67" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+    <span class="badge"><i></i><span data-i18n="badge">En desarrollo · gratis para Windows</span></span>
+    <h1 data-i18n="h1">Tu centro multimedia, pensado para la tele</h1>
+    <p class="lead" data-i18n="lead">Zynko reproduce tus bibliotecas de Plex en 4K HDR con su propio reproductor, te prepara un Inicio a tu medida y hace que tus luces Philips Hue sigan la imagen. Todo con el mando, desde el sofá.</p>
+    <div class="ctas">
+      <a class="btn primary" href="https://github.com/nexaproject-repository/zynko" data-i18n="cta_notify">Avísame cuando salga</a>
+      <a class="btn" href="#funciones" data-i18n="cta_more">Qué hace Zynko</a>
+    </div>
+    <p class="small" data-i18n="notify_hint">En GitHub: Watch › Custom › Releases. Te llegará un aviso con la primera versión.</p>
+  </div>
+
+  <section id="funciones">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="f_eyebrow">Funciones</p>
+      <h2 data-i18n="f_h2">Todo lo que ves en casa, en un solo sitio</h2>
+      <p class="sub" data-i18n="f_sub">Zynko convierte el PC del salón en un centro multimedia de verdad. Sin pantallas de ordenador, sin ratón y sin saltar de una app a otra.</p>
+      <div class="grid">
+        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span><h3 data-i18n="c1_t">Reproductor propio 4K HDR</h3><p data-i18n="c1_p">Reproduce tus bibliotecas de Plex sin pasar por otra app: HDR10, Dolby Vision convertido, ajuste automático de la frecuencia de la tele y audio Dolby Atmos o DTS-HD hacia tu barra de sonido.</p></div>
+        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="8" height="6" rx="2"/><rect x="13" y="14" width="8" height="6" rx="2"/></svg></span><h3 data-i18n="c2_t">Un Inicio a tu medida</h3><p data-i18n="c2_p">Secciones como Seguir viendo, Añadidas recientemente o el Top 10 de Netflix, con pósters o viñetas, y un menú con solo lo que tú usas.</p></div>
+        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A4.5 4.5 0 0 1 21 18.5"/></svg></span><h3 data-i18n="c3_t">Perfiles para toda la casa</h3><p data-i18n="c3_p">Hasta 8 perfiles, cada uno con su lista, lo que lleva visto y sus preferencias. PIN opcional y perfiles de Plex Home importados en un paso.</p></div>
+        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span><h3 data-i18n="c4_t">Busca y te avisamos</h3><p data-i18n="c4_p">Busca en tus bibliotecas, por actores y directores, y también lo que aún no tienes. Añádelo a tu lista y Zynko te avisa cuando llegue.</p></div>
+        <div class="card"><span class="ic" style="color:#F5C451;background:rgba(245,196,81,.12)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></span><h3 data-i18n="c5_t">Luces que siguen la imagen</h3><p data-i18n="c5_p">Philips Hue Sync integrado: tu área de entretenimiento se tiñe con los colores de lo que estás viendo, y en los menús elige tú: apagado, color fijo o sincronizado.</p></div>
+        <div class="card"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="5"/><circle cx="12" cy="8" r="2"/><path d="M12 14v3"/></svg></span><h3 data-i18n="c6_t">Hecho para el mando</h3><p data-i18n="c6_p">Flechas, OK y Atrás para todo. Teclado en pantalla y la opción de escribir desde el móvil con un código QR. El tamaño de la interfaz se ajusta a tu tele.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap lights">
+      <div>
+        <p class="eyebrow" data-i18n="l_eyebrow">Philips Hue</p>
+        <h2 data-i18n="l_h2">Enciende la sala</h2>
+        <p class="sub" style="margin-bottom:18px" data-i18n="l_p1">Zynko toma los colores directamente de su reproductor, sin capturar la pantalla, y los envía a tu área de entretenimiento de Hue en tiempo real.</p>
+        <p class="sub" style="margin:0" data-i18n="l_p2">Respeta las recomendaciones de Philips sobre cambios rápidos de brillo, y puedes elegir la intensidad y el brillo máximo.</p>
+      </div>
+      <div class="tv" aria-hidden="true"><div class="scr"><svg viewBox="7.5 7.5 85 85"><g fill="none" stroke="#fff" stroke-opacity=".9"><path d="M12 62 V38 A26 26 0 0 1 38 12 H62 M88 38 V62 A26 26 0 0 1 62 88 H38" stroke-width="9"/><path d="M33 33 H67 L33 67 H67" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="s_eyebrow">Primer arranque</p>
+      <h2 data-i18n="s_h2">Listo en unos minutos</h2>
+      <p class="sub" data-i18n="s_sub">Zynko solo te pregunta por lo que vas a usar.</p>
+      <div class="steps">
+        <div class="step"><b data-i18n="st1_t">1 · Marca lo que tienes</b><span data-i18n="st1_p">Plex, Philips Hue… Lo demás se añade cuando quieras.</span></div>
+        <div class="step"><b data-i18n="st2_t">2 · Vincula Plex con un código</b><span data-i18n="st2_p">Escanea el QR con el móvil o entra en plex.tv/link. Tu contraseña nunca pasa por Zynko.</span></div>
+        <div class="step"><b data-i18n="st3_t">3 · Elige bibliotecas y perfil</b><span data-i18n="st3_p">Zynko prueba tus servidores, sugiere categorías y crea tu perfil.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hoja-de-ruta">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="r_eyebrow">Hoja de ruta</p>
+      <h2 data-i18n="r_h2">Hacia dónde va Zynko</h2>
+      <p class="sub" data-i18n="r_sub">Por fases, sin fechas cerradas. Cada fase se construye sobre la anterior.</p>
+      <div class="road">
+        <div class="col"><h3><i style="background:var(--accent)"></i><span data-i18n="r1_t">Primera versión</span></h3><ul><li data-i18n="r1_a">Plex con reproductor propio 4K HDR</li><li data-i18n="r1_b">Inicio, menú y perfiles</li><li data-i18n="r1_c">Búsqueda, lista y notificaciones</li><li data-i18n="r1_d">Philips Hue Sync</li><li data-i18n="r1_e">Top 10 de Netflix y catálogo de plataformas</li></ul></div>
+        <div class="col"><h3><i style="background:var(--violet)"></i><span data-i18n="r2_t">Después</span></h3><ul><li data-i18n="r2_a">Bibliotecas locales: discos y carpetas del PC</li><li data-i18n="r2_b">Jellyfin</li><li data-i18n="r2_c">Simkl para lo que has visto</li><li data-i18n="r2_d">Home Assistant: control por voz y automatizaciones</li></ul></div>
+        <div class="col"><h3><i style="background:var(--lilac)"></i><span data-i18n="r3_t">Más adelante</span></h3><ul><li data-i18n="r3_a">Emby</li><li data-i18n="r3_b">Perfil infantil</li><li data-i18n="r3_c">Saltar intro y créditos</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="q_eyebrow">Preguntas</p>
+      <h2 data-i18n="q_h2">Preguntas frecuentes</h2>
+      <details><summary data-i18n="q1">¿Es gratis?</summary><p data-i18n="a1">Sí. Zynko es gratuito para uso personal, sin anuncios ni suscripciones. Su código no es público.</p></details>
+      <details><summary data-i18n="q2">¿Qué necesito?</summary><p data-i18n="a2">Un PC con Windows 10 u 11 de 64 bits conectado a la tele y una cuenta de Plex con un servidor. Para ver contenido HDR, una pantalla compatible con HDR. Los requisitos definitivos se publicarán con la primera versión.</p></details>
+      <details><summary data-i18n="q3">¿Necesito Plex Pass?</summary><p data-i18n="a3">No para ver tu propio servidor en casa. Plex exige Plex Pass o Remote Watch Pass para ver servidores fuera de casa desde apps de terceros, por ejemplo una biblioteca que te comparte un amigo. Zynko te lo explica cuando ocurre.</p></details>
+      <details><summary data-i18n="q4">¿Y mis datos?</summary><p data-i18n="a4">Zynko no tiene cuentas propias ni servidores: tus perfiles, tu lista y tus ajustes se guardan en tu equipo. Solo se conecta a los servicios que tú eliges, como Plex, TMDB o tu puente Hue.</p></details>
+      <details><summary data-i18n="q5">¿Cuándo sale?</summary><p data-i18n="a5">Está en desarrollo. Para enterarte de la primera versión, sigue el repositorio en GitHub con Watch › Custom › Releases.</p></details>
+      <details><summary data-i18n="q6">¿Cómo informo de un fallo o propongo una idea?</summary><p data-i18n="a6">Desde Issues en el repositorio de GitHub. Si es un problema de seguridad, usa el aviso privado que se explica en SECURITY.md.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img src="assets/zynko-horizontal-dark.svg" alt="Zynko" width="120" height="27" style="height:27px;width:auto">
+      <nav aria-label="Enlaces">
+        <a href="https://github.com/nexaproject-repository/zynko">GitHub</a>
+        <a href="https://github.com/nexaproject-repository/zynko/blob/main/docs/user-guide/README.md" data-i18n="l_guide">Guía de uso</a>
+        <a href="https://github.com/nexaproject-repository/zynko/issues/new/choose" data-i18n="l_issues">Fallos e ideas</a>
+        <a href="https://github.com/nexaproject-repository/zynko/blob/main/LICENSE" data-i18n="l_license">Licencia</a>
+        <a href="https://github.com/nexaproject-repository/zynko/blob/main/THIRD_PARTY_NOTICES.md" data-i18n="l_notices">Avisos de terceros</a>
+        <a href="https://github.com/nexaproject-repository/zynko/blob/main/SECURITY.md" data-i18n="l_security">Seguridad</a>
+      </nav>
+    </div>
+    <p class="legal" data-i18n="legal">Este producto usa la API de TMDB pero no está respaldado ni certificado por TMDB. Plex es una marca de Plex, Inc.; Philips y Hue son marcas de Signify. Zynko no está afiliado a ellas. Netflix y el resto de nombres de plataformas pertenecen a sus dueños.</p>
+    <p class="legal">© Nexa Project (M. J. Escaño)</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const EN = {
+    nav_features: 'Features', nav_roadmap: 'Roadmap', nav_faq: 'FAQ',
+    badge: 'In development · free for Windows',
+    h1: 'Your media center, made for the TV',
+    lead: 'Zynko plays your Plex libraries in 4K HDR with its own player, builds a Home that fits you and makes your Philips Hue lights follow the picture. All with the remote, from the sofa.',
+    cta_notify: 'Notify me when it’s out', cta_more: 'What Zynko does',
+    notify_hint: 'On GitHub: Watch › Custom › Releases. You’ll be notified of the first version.',
+    f_eyebrow: 'Features', f_h2: 'Everything you watch at home, in one place',
+    f_sub: 'Zynko turns the living-room PC into a real media center. No desktop windows, no mouse, no jumping between apps.',
+    c1_t: 'Its own 4K HDR player', c1_p: 'Plays your Plex libraries without another app: HDR10, converted Dolby Vision, automatic refresh-rate matching and Dolby Atmos or DTS-HD audio to your soundbar.',
+    c2_t: 'A Home that fits you', c2_p: 'Sections like Continue watching, Recently added or Netflix Top 10, with posters or landscape cards, and a menu with only what you use.',
+    c3_t: 'Profiles for the whole house', c3_p: 'Up to 8 profiles, each with its own watchlist, watched state and preferences. Optional PIN and Plex Home profiles imported in one step.',
+    c4_t: 'Search, and we’ll let you know', c4_p: 'Search your libraries, by actors and directors, and also what you don’t have yet. Add it to your watchlist and Zynko tells you when it arrives.',
+    c5_t: 'Lights that follow the picture', c5_p: 'Built-in Philips Hue Sync: your entertainment area takes the colours of what you’re watching, and in menus you choose: off, fixed colour or synced.',
+    c6_t: 'Made for the remote', c6_p: 'Arrows, OK and Back for everything. On-screen keyboard and typing from your phone with a QR code. The interface size adapts to your TV.',
+    l_eyebrow: 'Philips Hue', l_h2: 'Switch on the room',
+    l_p1: 'Zynko takes the colours straight from its player, with no screen capture, and sends them to your Hue entertainment area in real time.',
+    l_p2: 'It follows Philips’ guidance on fast brightness changes, and you can set the intensity and maximum brightness.',
+    s_eyebrow: 'First run', s_h2: 'Ready in a few minutes', s_sub: 'Zynko only asks about what you’ll use.',
+    st1_t: '1 · Tick what you have', st1_p: 'Plex, Philips Hue… Everything else can be added later.',
+    st2_t: '2 · Link Plex with a code', st2_p: 'Scan the QR code with your phone or go to plex.tv/link. Your password never goes through Zynko.',
+    st3_t: '3 · Pick libraries and profile', st3_p: 'Zynko tests your servers, suggests categories and creates your profile.',
+    r_eyebrow: 'Roadmap', r_h2: 'Where Zynko is going', r_sub: 'In phases, with no fixed dates. Each phase builds on the previous one.',
+    r1_t: 'First version', r1_a: 'Plex with its own 4K HDR player', r1_b: 'Home, menu and profiles', r1_c: 'Search, watchlist and notifications', r1_d: 'Philips Hue Sync', r1_e: 'Netflix Top 10 and platform catalogues',
+    r2_t: 'Next', r2_a: 'Local libraries: the PC’s drives and folders', r2_b: 'Jellyfin', r2_c: 'Simkl for what you’ve watched', r2_d: 'Home Assistant: voice control and automations',
+    r3_t: 'Later', r3_a: 'Emby', r3_b: 'Kids profile', r3_c: 'Skip intro and credits',
+    q_eyebrow: 'Questions', q_h2: 'Frequently asked questions',
+    q1: 'Is it free?', a1: 'Yes. Zynko is free for personal use, with no ads or subscriptions. Its source code is not public.',
+    q2: 'What do I need?', a2: 'A 64-bit Windows 10 or 11 PC connected to the TV and a Plex account with a server. For HDR content, an HDR-capable display. Final requirements will be published with the first version.',
+    q3: 'Do I need Plex Pass?', a3: 'Not to watch your own server at home. Plex requires Plex Pass or Remote Watch Pass to watch servers outside your home from third-party apps, for example a library a friend shares with you. Zynko explains it when it happens.',
+    q4: 'What about my data?', a4: 'Zynko has no accounts or servers of its own: your profiles, watchlist and settings stay on your PC. It only connects to the services you choose, such as Plex, TMDB or your Hue bridge.',
+    q5: 'When is it out?', a5: 'It is in development. To hear about the first version, watch the GitHub repository with Watch › Custom › Releases.',
+    q6: 'How do I report a bug or suggest an idea?', a6: 'Through Issues in the GitHub repository. For a security problem, use the private report explained in SECURITY.md.',
+    l_guide: 'User guide', l_issues: 'Bugs and ideas', l_license: 'License', l_notices: 'Third-party notices', l_security: 'Security',
+    legal: 'This product uses the TMDB API but is not endorsed or certified by TMDB. Plex is a trademark of Plex, Inc.; Philips and Hue are trademarks of Signify. Zynko is not affiliated with them. Netflix and other platform names belong to their owners.',
+  };
+  const ES = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => { ES[el.dataset.i18n] = el.textContent; });
+  const META = { es: ['Zynko · Multimedia Home Center para Windows', 'es'], en: ['Zynko · Multimedia Home Center for Windows', 'en'] };
+  function setLang(l) {
+    const dict = l === 'en' ? EN : ES;
+    document.querySelectorAll('[data-i18n]').forEach(el => { const v = dict[el.dataset.i18n]; if (v) el.textContent = v; });
+    document.documentElement.lang = META[l][1]; document.title = META[l][0];
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+    try { localStorage.setItem('zynko-lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  let saved = null; try { saved = localStorage.getItem('zynko-lang'); } catch (e) {}
+  setLang(saved || ((navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en'));
+})();
+</script>
+</body>
+</html>
