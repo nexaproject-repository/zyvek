@@ -12,6 +12,11 @@ Zynko includes or uses the components and services below. Each is distributed un
 | [.NET](https://dotnet.microsoft.com) | Runtime | MIT |
 | [Avalonia](https://avaloniaui.net) | User interface | MIT |
 | [Quicksand](https://fonts.google.com/specimen/Quicksand), [Manrope](https://fonts.google.com/specimen/Manrope) | Fonts | SIL Open Font License 1.1 |
+| [VS Chamber Orchestra: Community Edition](https://github.com/sgossner/VSCO-2-CE) | Orchestral recordings used in the intro music and interface sounds | CC0 1.0 (public domain dedication) |
+
+### Orchestral recordings
+
+The intro music, the setup music and the interface sounds are built from recordings in **VS Chamber Orchestra: Community Edition** by Versilian Studios, recorded by Sam Gossner and Simon Dalzell, with sample cutting by Elan Hickler (Soundemote). The library is released under CC0 1.0, so no attribution is required; we credit it with thanks.
 
 ### LGPL components
 
